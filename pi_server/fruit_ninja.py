@@ -1,2 +1,3 @@
-while(1):
-    print("a")
+import time
+
+time.sleep(5)
