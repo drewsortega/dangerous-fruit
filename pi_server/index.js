@@ -4,7 +4,7 @@ const spawn = require('child_process').spawn;
 const path = require('path')
 let process = {};
 let running = false;
-
+console.log('starting local pi server')
 socket = io.connect("http://flip1.engr.oregonstate.edu:3007");
 socket.on("conn_received", () => {
     console.log('connected to server');
