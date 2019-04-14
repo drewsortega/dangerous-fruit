@@ -6,11 +6,6 @@ out2 = 31
 out3 = 33
 out4 = 32
 
-i=0
-positive=0
-negative=0
-y=0
-
 
 
 GPIO.setmode(GPIO.BOARD)
@@ -18,85 +13,36 @@ GPIO.setup(out1,GPIO.OUT)
 GPIO.setup(out2,GPIO.OUT)
 GPIO.setup(out3,GPIO.OUT)
 GPIO.setup(out4,GPIO.OUT)
-GPIO.output(out1,GPIO.LOW)
-GPIO.output(out2,GPIO.LOW)
-GPIO.output(out3,GPIO.LOW)
-GPIO.output(out4,GPIO.LOW)
+o1 = GPIO.PWM(out1, 100)
+o2 = GPIO.PWM(out2, 100)
+o3 = GPIO.PWM(out3, 100)
+o4 = GPIO.PWM(out4, 100)
+o1.start(0)
+o2.start(0)
+o3.start(0)
+o4.start(0)
 
-def spin(t, o1, v1, o2, v2):
-    GPIO.output(o1,v1)
-    GPIO.output(o2,v2)
-    time.sleep(t)
-    GPIO.output(o1,GPIO.LOW)
-    GPIO.output(o2,GPIO.LOW)
-
-def left_forward(t):
-    spin(t, out3, GPIO.HIGH, out4, GPIO.LOW)
-
-def left_backward(t):
-    spin(t, out3, GPIO.LOW, out4, GPIO.HIGH)
-
-def right_forward(t):
-    spin(t, out1, GPIO.LOW, out2, GPIO.HIGH)
-
-
-def right_backward(t):
-    spin(t, out1, GPIO.HIGH, out2, GPIO.LOW)
-
+max_duty = 50
 
 def forward(t):
-    GPIO.output(out1,GPIO.LOW)
-    GPIO.output(out2,GPIO.HIGH)
-    GPIO.output(out3,GPIO.HIGH)
-    GPIO.output(out4,GPIO.LOW)
+    o1.ChangeDutyCycle(0)
+    o2.ChangeDutyCycle(max_duty)
+    o3.ChangeDutyCycle(max_duty)
+    o4.ChangedutyCycle(0)
     time.sleep(t)
-    GPIO.output(out1,GPIO.LOW)
-    GPIO.output(out2,GPIO.LOW)
-    GPIO.output(out3,GPIO.LOW)
-    GPIO.output(out4,GPIO.LOW)
-
+    o1.ChangeDutyCycle(0)
+    o2.ChangeDutyCycle(0)
+    o3.ChangeDutyCycle(0)
+    o4.ChangeDutyCycle(0)
 
 
 def backward(t):
-    GPIO.output(out1,GPIO.HIGH)
-    GPIO.output(out2,GPIO.LOW)
-    GPIO.output(out3,GPIO.LOW)
-    GPIO.output(out4,GPIO.HIGH)
+    o1.ChangeDutyCycle(max_duty)
+    o2.ChangeDutyCycle(0)
+    o3.ChangeDutyCycle(0)
+    o4.ChangedutyCycle(max_duty)
     time.sleep(t)
-    GPIO.output(out1,GPIO.LOW)
-    GPIO.output(out2,GPIO.LOW)
-    GPIO.output(out3,GPIO.LOW)
-    GPIO.output(out4,GPIO.LOW)
-
-
-def left(t):
-    GPIO.output(out1,GPIO.HIGH)
-    GPIO.output(out2,GPIO.LOW)
-    GPIO.output(out3,GPIO.HIGH)
-    GPIO.output(out4,GPIO.LOW)
-    time.sleep(t)
-    GPIO.output(out1,GPIO.LOW)
-    GPIO.output(out2,GPIO.LOW)
-    GPIO.output(out3,GPIO.LOW)
-    GPIO.output(out4,GPIO.LOW)
-
-
-
-def right(t):
-    GPIO.output(out1,GPIO.LOW)
-    GPIO.output(out2,GPIO.HIGH)
-    GPIO.output(out3,GPIO.LOW)
-    GPIO.output(out4,GPIO.HIGH)
-    time.sleep(t)
-    GPIO.output(out1,GPIO.LOW)
-    GPIO.output(out2,GPIO.LOW)
-    GPIO.output(out3,GPIO.LOW)
-    GPIO.output(out4,GPIO.LOW)
-
-def cleanup():
-    GPIO.output(out1,GPIO.LOW)
-    GPIO.output(out2,GPIO.HIGH)
-    GPIO.output(out3,GPIO.LOW)
-    GPIO.output(out4,GPIO.HIGH)
-    GPIO.cleanup()
-            
+    o1.ChangeDutyCycle(0)
+    o2.ChangeDutyCycle(0)
+    o3.ChangeDutyCycle(0)
+    o4.ChangeDutyCycle(0)
