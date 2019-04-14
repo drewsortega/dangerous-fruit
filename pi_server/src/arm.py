@@ -5,24 +5,27 @@ import signal
 
 out_vdd = 12
 out_gnd = 11
+max_duty = 65
 
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(out_vdd, GPIO.OUT)
 GPIO.setup(out_gnd, GPIO.OUT)
-GPIO.output(out_vdd, GPIO.LOW)
-GPIO.output(out_gnd, GPIO.LOW)
+vdd = GPIO.PWM(out_vdd, 100)
+gnd = GPIO.PWM(out_gnd, 100)
+gnd.start(0)
+vdd.start(0)
+
 
 def rotate_timed(t):
-    GPIO.output(out_vdd, GPIO.HIGH)
-    GPIO.output(out_gnd, GPIO.LOW)
+    vdd.ChamgeDutyCycle(max_duty)
+    gnd.ChangeDutyCycle(0)
     time.sleep(t)
-    GPIO.output(out_vdd, GPIO.LOW)
-    GPIO.output(out_gnd, GPIO.LOW)
-
+    vdd.ChangeDutyCycle(0)
+    gnd.ChangeDutyCycle(0)
 def start():
-    GPIO.output(out_vdd, GPIO.HIGH)
-    GPIO.output(out_gnd, GPIO.LOW)
+    vdd.ChangeDutyCycle(max_duty)
+    gnd.ChangeDutyCycle(0)
 
 def end():
-    GPIO.output(out_vdd, GPIO.LOW)
-    GPIO.output(out_gnd, GPIO.LOW)
+    vdd.ChangeDutyCycle(0)
+    gnd.ChangeDutyCycle(0)
