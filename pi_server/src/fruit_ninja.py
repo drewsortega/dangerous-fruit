@@ -13,14 +13,14 @@ out_w2 = 31
 out_w3 = 32
 out_w4 = 33
 
-chance_turn = 5
+chance_turn = 3
 
 max_time = 20
 cur_time = 0
 
 left_rotate_time = 0
-right_rotate_time = 50
-cur_rotate_time = 25
+right_rotate_time = 14
+cur_rotate_time = 7
 
 GPIO.setmode(GPIO.BOARD)
 
@@ -43,12 +43,12 @@ try:
         if(random.randint(1, chance_turn) == 1):
             # turn
             if(random.randint(1, 2) == 1 and cur_rotate_time < right_rotate_time):
-                add_rotate_time = min(random.randint(1, 4), right_rotate_time-cur_rotate_time)
+                add_rotate_time = min(random.randint(1, 3), right_rotate_time-cur_rotate_time)
                 wheels.forward(add_rotate_time)
                 cur_rotate_time += add_rotate_time
                 cur_time += add_rotate_time
             else:
-                rem_rotate_time = min(random.randint(1, 4), cur_rotate_time-left_rotate_time)
+                rem_rotate_time = min(random.randint(1, 3), cur_rotate_time-left_rotate_time)
                 wheels.backward(rem_rotate_time)
                 cur_rotate_time -= rem_rotate_time
                 cur_time += rem_rotate_time
