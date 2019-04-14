@@ -13,7 +13,7 @@ socket.on("conn_received", () => {
 socket.on("begin", () => {
     if (!running) {
         console.log('beginning program');
-        process = spawn('python', [path.resolve(__dirname, 'fruit_ninja.py')])
+        process = spawn('python', [path.resolve(__dirname, 'src', 'fruit_ninja.py')])
         running = true;
         process.on('exit', function () {
             console.log('process finished');
