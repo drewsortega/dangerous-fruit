@@ -3,6 +3,7 @@ const app = express()
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 const path = require('path');
+const port = 3008
 let pisocket = {};
 let status = {
     in_progress: false,
@@ -46,9 +47,10 @@ io.on('connection', socket => {
 });
 
 app.get('/', (req, res) => {
-    res.sendFile(path.resolve(__dirname, "public", "index.html"));
+    	//res.send("TEST")
+	res.sendFile(path.resolve(__dirname, "public", "index.html"));
 });
 
-server.listen(3008, () => {
-    console.log("listening on port 3007")
+server.listen(port, () => {
+    console.log(`listening on port ${port}`)
 })
